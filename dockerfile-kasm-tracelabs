@@ -10,7 +10,10 @@ WORKDIR $HOME
 
 ######### Customize Container Here ###########
 
-
+RUN apt-get update \
+    && apt-get install -y sudo \
+    && echo 'kasm-user ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers \
+    && rm -rf /var/lib/apt/list/*
 # Install Tracelabs utils
 COPY ./src/ubuntu/install/tracelabs $INST_SCRIPTS/tracelabs/
 RUN bash $INST_SCRIPTS/tracelabs/install_tracelabs.sh && rm -rf $INST_SCRIPTS/tracelabs/
